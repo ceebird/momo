@@ -1,0 +1,49 @@
+{% include 'base.html' %}
+{% load static %}
+
+
+{% block head_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+{% endblock %}
+
+{% block body_main %}
+<a id="vflashcards">
+    <div class="container">
+        <section class="flip-card flashcards">
+        <div class="flashcard-inner" id="flashcard" v-bind:class="{'rotate-card': flipped}">
+            <div class="flashcard-front" id="flashcard-front">
+            <!--<img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">-->
+                <!-- <h1>{{ card.language_word}}</h1> -->
+                <form id="card-form" action="{% url 'flashcards:answer' card.id %}" method="post">
+                    <h1 id="front_word"></h1>
+                    <!-- <h1>[[message]]</h1> -->
+                <!-- <form id="card-form" method="post"></form> -->
+                    {% csrf_token %}
+                    <input type="text" id="answer_text" name="answer_text">
+                    <input class="btn-primary" type="submit" value="Submit" id="submit">
+                </form>
+                {% if wrong_answer %}
+                    <div class="alert alert-danger" role="alert">
+                        <p><strong>{{ wrong_answer }}</strong></p>
+                    </div>
+                {% endif %}
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            </div>
+            <div class="flashcard-back" id="flashcard-back">
+                <!-- <h2> {{ card.native_word}}</h2> -->
+                <form id="next-card-form" action="{% url 'flashcards:next_card' card.id %}" method="post">
+                    <h1 id="back_word"></h1>
+                    <input class="btn-primary" type="submit" value="Submit" id="submit">
+                </form>
+            </div>
+            </div>
+        </section>
+        <p id ="card_id" hidden></p> 
+    </div> 
+</a>
+
+{% endblock %}
+
+{% block footer_javascript_site %}
+<script src="{% static 'flashcards/js/flashcards.js' %}" type="text/javascript"></script>
+{% endblock %}
