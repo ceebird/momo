@@ -38,10 +38,12 @@ function get_answer() {
 
 
     var answertext = $('#answer_text').val();
+    var cardId = $('#card_id').text();
     $.ajax({
         url : "answer/", // the endpoint
         type : "POST", // http method
         data : { answer_text : answertext,
+                card_id : cardId,
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()}, // data sent with the post request
 
         // handle a successful response
@@ -91,7 +93,7 @@ function get_next_card() {
             // window.location.href = '/'+ json.next_card_pk; 
             // document.write(json)
             $("#next-card-form").hide();
-            document.getElementById("flashcard").style.transform = "rotateY(0deg)";
+            vflashcards.flipped = false;
             $('#card_id').text(data.pk)
             $('#front_word').text(data.front_word)
             $('#back_word').text(data.back_word)
@@ -118,8 +120,6 @@ $( document ).ready(function() {
         csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
     },
     function(data, status){
-        console.log(data)
-        // document.write(data)
         $('#card_id').text(data.pk)
         $('#front_word').text(data.front_word)
         $('#back_word').text(data.back_word)

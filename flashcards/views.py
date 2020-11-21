@@ -29,18 +29,16 @@ class CardView(generic.DetailView):
     template_name = 'flashcards/card.html'
 
 def answer(request, card_id):
-    card = get_object_or_404(Card, pk=card_id)
     if request.method == 'POST':
+        card = get_object_or_404(Card, pk=int(request.POST['card_id']))
         response_data = {}
         answer = request.POST['answer_text']
-        print(f">>>>> Answer: {answer}, word: {card.native_word}")
         if card.native_word.lower() == answer.lower():
             response_data['correct_answer'] = True
             return HttpResponse(
                 json.dumps(response_data),
                 content_type="application/json"
             )
-            
         # try:
             # answer = request.POST.get['answer']
             # print(answer)
@@ -61,14 +59,13 @@ def answer(request, card_id):
         #         'card': card,
         #         'error_message': "Couldn't submit",
         #     })
-    else:
-        return HttpResponse(
-            json.dumps({"correct_answer": False}),
-            content_type="application/json"
-        )
+        else:
+            return HttpResponse(
+                json.dumps({"correct_answer": False}),
+                content_type="application/json"
+            )
 
 def next_card(request, card_id):
-    print("next card")
     try:
         next_card = Card.objects.get(pk=card_id+1)
         # return HttpResponseRedirect(reverse('flashcards:card_view', args=(next_card.id,)))
