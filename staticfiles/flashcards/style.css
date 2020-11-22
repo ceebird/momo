@@ -1,0 +1,88 @@
+.flashcard-input {
+    position: relative;
+    bottom: 0;
+    display: block;
+    margin : 0 auto;
+}
+h1 {
+    padding: 40px; 
+}
+h2{
+    padding: 40px; 
+}
+div:hover h2{ 
+    animation:  shake 0.8s  ; 
+} 
+
+@keyframes shake{ 
+    0%{ 
+        transform: translateX(0) 
+    } 
+    25%{ 
+        transform: translateX(25px); 
+    } 
+        
+    50%{ 
+        transform: translateX(-25px); 
+    } 
+    100%{ 
+        transform: translateX(0px); 
+    } 
+    }
+.flip-card {
+    background-color: #454140;
+    width: 80%;
+    height: 100%;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    color:black; 
+    margin:auto;
+    text-align:center;
+    padding-bottom: 50px;
+}
+
+/* This container is needed to position the front and back side */
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    padding-bottom: 50px;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+/* .flip-card:hover .flashcard-inner {
+    transform: rotateY(180deg);
+} */
+.rotate-card {
+    transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flashcard-front {
+    background-color: white;
+    color: black;
+}
+
+/* Style the back side */
+.flashcard-back {
+    background-color: grey;
+    color: white;
+    transform: rotateY(180deg);
+}
+.container{
+    height:100%;
+}
+.container .flip-card{
+    height:70%;
+}
