@@ -9,26 +9,30 @@ import json
 
 class IndexView(generic.ListView):
     template_name = 'flashcards/index.html'
-    context_object_name = 'cards'
-
-    def get_queryset(self):
-        """Return all cards."""
-        return Card.objects.all()
-
-class SetView(generic.DetailView):
     model = Set
-    template_name = 'flashcards/set.html'
+    context_object_name = 'sets'
+    paginate_by = 10
 
-    def get_cards(self):
-        """Return all cards of set."""
-        return self.cards.all
+# class SetView(generic.DetailView):
+#     model = Set
+#     template_name = 'flashcards/set.html'
+#
+#     def get_queryset(self):
+#         """Return all cards of set."""
+#         print(Card.objects.all())
+#         # return Card.objects.filter(set=self.language)
+#         return Card.objects.all()
 
+def set_view(request, pk):
+    return render(request, 'flashcards/set.html', {
+        'cards': Card.objects.all(),
+    })
+def card_view(request, set_id):
+    return render(request, 'flashcards/card.html', {
+        'set_id': 1,
+    })
 
-class CardView(generic.DetailView):
-    model = Card
-    template_name = 'flashcards/card.html'
-
-def answer(request, card_id):
+def answer(request, set_id):
     if request.method == 'POST':
         card = get_object_or_404(Card, pk=int(request.POST['card_id']))
         response_data = {}
@@ -53,7 +57,7 @@ def answer(request, card_id):
         #             'card': card,
         #             'wrong_answer': "Incorrect!",
         #         })
-                
+
         # except:
         #     return render(request, 'flashcards/card.html', {
         #         'card': card,
@@ -65,24 +69,23 @@ def answer(request, card_id):
                 content_type="application/json"
             )
 
-def next_card(request, card_id):
+def next_card(request, set_id):
     try:
-        next_card = Card.objects.get(pk=card_id+1)
-        # return HttpResponseRedirect(reverse('flashcards:card_view', args=(next_card.id,)))
-        # return HttpResponse(
-        #         json.dumps({'next_card_pk': next_card.pk}),
-        #         content_type="application/json"
-        #     )
-        return HttpResponse(
-            json.dumps({"pk": next_card.pk, "front_word" : next_card.language_word, "back_word": next_card.native_word }),
-            content_type="application/json"
-        )
+        if request.method == 'POST':
+            next_card = Card.objects.get(pk=int(request.POST['card_id'])+1)
+            return HttpResponse(
+                json.dumps({"pk": next_card.pk, "front_word" : next_card.language_word, "back_word": next_card.native_word }),
+                content_type="application/json"
+            )
+        else:
+            return HttpResponseRedirect(reverse('flashcards:card_view', args=(1,)))
     except:
         return HttpResponseRedirect(reverse('flashcards:card_view', args=(1,)))
-            
 
-def first_card(request, card_id):
+
+def first_card(request, set_id):
     card = get_object_or_404(Card, pk=1)
+    print(f"Get first card: {card}")
     return HttpResponse(
             json.dumps({"pk": card.pk, "front_word" : card.language_word, "back_word": card.native_word }),
             content_type="application/json"

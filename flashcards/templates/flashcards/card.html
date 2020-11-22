@@ -14,7 +14,7 @@
             <div class="flashcard-front" id="flashcard-front">
             <!--<img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">-->
                 <!-- <h1>{{ card.language_word}}</h1> -->
-                <form id="card-form" action="{% url 'flashcards:answer' card.id %}" method="post">
+                <form id="card-form" action="{% url 'flashcards:answer' set_id %}" method="post" autocomplete="off">
                     <h1 id="front_word"></h1>
                     <!-- <h1>[[message]]</h1> -->
                 <!-- <form id="card-form" method="post"></form> -->
@@ -31,15 +31,15 @@
             </div>
             <div class="flashcard-back" id="flashcard-back">
                 <!-- <h2> {{ card.native_word}}</h2> -->
-                <form id="next-card-form" action="{% url 'flashcards:next_card' card.id %}" method="post">
+                <form id="next-card-form" action="{% url 'flashcards:next_card' set_id %}" method="post">
                     <h1 id="back_word"></h1>
-                    <input class="btn-primary" type="submit" value="Submit" id="submit">
+                    <input class="btn-primary" type="submit" value="Next" id="submit">
                 </form>
             </div>
             </div>
         </section>
         <input type="number" id ="card_id" hidden></input>
-    </div> 
+    </div>
 </a>
 
 {% endblock %}

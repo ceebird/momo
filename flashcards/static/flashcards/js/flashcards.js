@@ -72,11 +72,13 @@ function get_answer() {
 function get_next_card() {
     console.log("get_next_card is working!") // sanity check
     var answertext = $('#answer_text').val();
+    var cardId = $('#card_id').text();
 
     $.ajax({
         url : "next_card/", // the endpoint
         type : "POST", // http method
         data : {
+                card_id : cardId,
                 answer_text : answertext,
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()},
 
@@ -90,7 +92,7 @@ function get_next_card() {
             //     document.getElementById("flashcard").style.transform = "rotateY(180deg)";
             // }
             // console.log(window.location.href)
-            // window.location.href = '/'+ json.next_card_pk; 
+            // window.location.href = '/'+ json.next_card_pk;
             // document.write(json)
             $("#next-card-form").hide();
             vflashcards.flipped = false;

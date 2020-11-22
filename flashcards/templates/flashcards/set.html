@@ -1,0 +1,20 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}"> -->
+{% endblock %}
+
+{% if cards %}
+<div class="container">
+  <h2>Sets</h2>
+  <ul class="list-group">
+    {% for card in cards %}
+    <li class="list-group-item"><a href="{% url 'flashcards:card_view' card.id %}">{{ card.language_word }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+    <p>No cards are available.</p>
+{% endif %}

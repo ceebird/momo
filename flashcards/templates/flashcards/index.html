@@ -3,33 +3,22 @@
 
 {% block head_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
 {% endblock %}
 
-<!-- {% if cards %}
-    <ul>
-    {% for card in cards %}
-    <li><a href="{% url 'flashcards:card_view' card.id %}">{{ card.language_word }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No card are available.</p>
-{% endif %} -->
-
 {% block body_main %}
+
+{% if sets %}
 <div class="container">
-    <section class="flip-card flashcards">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">
-          <!--<img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">-->
-            <h1> Test text</h1>
-                <input type="text" class="flashcard-input" id="answer"/>
-                <input type="submit" value="Submit">
-        </div>
-        <div class="flashcard-back">
-          <h2> Test text</h2>
-        </div>
-        </div>
-    </section>
-</div> 
-  
+  <h2>Sets</h2>
+  <ul class="list-group">
+    {% for set in sets %}
+    <li class="list-group-item"><a href="{% url 'flashcards:set_view' set.id %}">{{ set.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+    <p>No sets are available.</p>
+{% endif %}
+
 {% endblock %}
