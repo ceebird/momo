@@ -38,6 +38,7 @@ div:hover h2{
     margin:auto;
     text-align:center;
     padding-bottom: 50px;
+    max-width: 500px;
 }
 
 /* This container is needed to position the front and back side */
