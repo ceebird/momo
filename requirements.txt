@@ -1,1 +1,4 @@
-django-crispy-forms
+# django-crispy-forms
+psycopg2-binary
+psycopg2
+gunicorn

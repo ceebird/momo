@@ -3,18 +3,28 @@
 
 {% block head_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
 {% endblock %}
 
-{% if cards %}
-<div class="container">
-  <h2>Sets</h2>
-  <ul class="list-group">
-    {% for card in cards %}
-    <li class="list-group-item"><a href="{% url 'flashcards:card_view' card.id %}">{{ card.language_word }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-{% else %}
+{% block body_main %}
+  <div class="container">
+    <h2>Cards</h2>
+    <ul class="list-group">
+    {% if cards %}
+      {% for card in cards %}
+      <li class="list-group-item"><a href="{% url 'flashcards:card_view' card.id %}">{{ card.language_word }}</a></li>
+      {% endfor %}
+    {% else %}
     <p>No cards are available.</p>
-{% endif %}
+    {% endif %}
+  </ul>
+
+    <div class="btn-bottom">
+      <!-- <button type="button" href="{% url 'flashcards:create_card' set_id %}">Create</button> -->
+      <form action="{% url 'flashcards:create_card' set_id %}">
+        <input type="submit" value="Create" />
+    </form>
+    
+    </div>
+  </div>
+{% endblock body_main %}

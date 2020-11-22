@@ -1,0 +1,17 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
+{% endblock %}
+
+{% block body_main %}
+<div class="container">
+    <h2>Create new card</h2>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+</div>
+{% endblock %}

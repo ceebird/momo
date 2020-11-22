@@ -56,3 +56,18 @@ section {
     margin-left:20px;
     padding-top: 50px;
 } 
+.container .container-main{
+    background-color: lightgrey;
+    width:50%
+  }
+.container {
+justify-content: center;
+flex-direction: column;
+height: 100vh;
+display: flex;
+}
+/* .container .btn-holder { */
+/* justify-content: flex-end; */
+/* display: flex; */
+/* } */
+  
