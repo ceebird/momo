@@ -3,7 +3,8 @@
 
 
 {% block head_css %}
-<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/style.css' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}"> -->
 {% endblock %}
 
 {% block body_main %}
@@ -12,12 +13,8 @@
         <section class="flip-card flashcards">
         <div class="flashcard-inner" id="flashcard" v-bind:class="{'rotate-card': flipped}">
             <div class="flashcard-front" id="flashcard-front">
-            <!--<img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">-->
-                <!-- <h1>{{ card.language_word}}</h1> -->
                 <form id="card-form" action="{% url 'flashcards:answer' set_id %}" method="post" autocomplete="off">
                     <h1 id="front_word"></h1>
-                    <!-- <h1>[[message]]</h1> -->
-                <!-- <form id="card-form" method="post"></form> -->
                     {% csrf_token %}
                     <input type="text" id="answer_text" name="answer_text">
                     <input class="btn-primary" type="submit" value="Submit" id="submit">

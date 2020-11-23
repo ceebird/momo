@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Language(models.Model):
 
@@ -15,6 +16,9 @@ class Set(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('flashcards:set_view', args=[self.id])
+
 class Card(models.Model):
     language_word = models.CharField(max_length=200)
     native_word = models.CharField(max_length=200)
@@ -22,3 +26,6 @@ class Card(models.Model):
 
     def __str__(self):
         return f"{self.set.name}: {self.language_word}"
+
+    def get_absolute_url(self):
+        return reverse('flashcards:card_view', args=[self.id])

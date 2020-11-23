@@ -20,9 +20,13 @@ class CardCreate(CreateView):
     model = Card
     fields = ['set', 'language_word', 'native_word']
 
+class SetCreate(CreateView):
+    model = Set
+    fields = ['name', 'language']
+
 def set_view(request, pk):
     return render(request, 'flashcards/set.html', {
-        'cards': Card.objects.all(),
+        'cards': Card.objects.filter(set=pk),
         'set_id': pk,
     })
 
