@@ -27,7 +27,7 @@
             </form>
         </div>
 
-        <div id="results-table" class="table-responsive ">
+        <div id="results-table" class="table-responsive" v-if="words.length">
             <table class="table table-dark">
                 <thead>
                     <tr>
@@ -45,6 +45,9 @@
                 </tbody>
               </table>
         </div>
+        <div class="alert alert-warning" role="alert" v-if="!words.length">
+            No results found
+          </div>
     </div>
 </a>
 
