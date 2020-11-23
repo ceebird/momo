@@ -2,13 +2,15 @@
 {% load static %}
 
 {% block head_css %}
-<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 {% endblock %}
 
 {% block body_main %}
-  <div class="container">
-    <h2>Cards</h2>
+<div class="container">
+  <h2>Cards</h2>
+  <div>
     <ul class="list-group">
     {% if cards %}
       {% for card in cards %}
@@ -18,15 +20,20 @@
     <p>No cards are available.</p>
     {% endif %}
   </ul>
+</div>
 
-    <div class="btn-bottom">
-      <form action="{% url 'flashcards:create_card' set_id %}">
-        <input type="submit" value="Create" />
-    </form>
-    <form action="{% url 'flashcards:word_search' set_id %}">
-      <input type="submit" value="Word Search" />
-    </form>
-    
+<div class="btn-bottom">
+  <div class="row">
+    <div class="col-6">
+    <form action="{% url 'flashcards:create_card' set_id %}">
+        <input type="submit" value="Create" class="btn btn-dark"/>
     </div>
+</form>
+  <div class="col-6">
+    <form action="{% url 'flashcards:word_search' set_id %}">
+        <input type="submit" value="Word Search" class="btn btn-dark"/>
+    </form>
   </div>
+</div>
+</div>
 {% endblock body_main %}

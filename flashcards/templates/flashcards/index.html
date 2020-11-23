@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head_css %}
-<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
 {% endblock %}
 
@@ -16,9 +16,20 @@
     <li class="list-group-item"><a href="{% url 'flashcards:set_view' set.id %}">{{ set.name }}</a></li>
     {% endfor %}
   </ul>
-</div>
 {% else %}
     <p>No sets are available.</p>
 {% endif %}
+
+  <div class="btn-bottom">
+    <div class="row">
+      <div class="col-12">
+      <form action="{% url 'flashcards:create_set' %}">
+          <input type="submit" value="Create" class="btn btn-dark"/>
+      </form>
+    </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}

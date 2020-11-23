@@ -66,8 +66,6 @@ flex-direction: column;
 height: 100vh;
 display: flex;
 }
-/* .container .btn-holder { */
-/* justify-content: flex-end; */
-/* display: flex; */
-/* } */
-  
+div{
+    padding: 10px;
+}
