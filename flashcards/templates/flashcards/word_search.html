@@ -1,0 +1,55 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
+{% endblock %}
+
+
+{% block body_main %}
+<a id="vwordsearch">
+    <div class="container">
+        <div>
+            <form id="search-form" action="{% url 'flashcards:search_word' set_id %}" method="post" autocomplete="off">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" type="text" id="language_word" v-model='language_word'>
+                    <label class="form-check-label" for="language_word">Language Word</label>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="native_word" v-model='native_word'>
+                    <label class="form-check-label" for="native_word">Native Word</label>
+                </div>
+                <div class="form-group">
+                    <input class="btn-primary" type="submit" value="Search">
+                </div>
+            </form>
+        </div>
+
+        <div id="results-table" class="table-responsive ">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col" v-for="(column, index) in columns" :key="index"> [[column]]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in words" :key="index">
+                        <td v-for="(column, indexColumn) in columns" :key="indexColumn">
+                            <li v-for="word in item[column]">
+                                [[ word ]]
+                            </li>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</a>
+
+{% endblock %}
+
+{% block footer_javascript_site %}
+<script src="{% static 'flashcards/js/word_search.js' %}" type="text/javascript"></script>
+{% endblock %}
