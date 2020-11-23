@@ -20,9 +20,11 @@
   </ul>
 
     <div class="btn-bottom">
-      <!-- <button type="button" href="{% url 'flashcards:create_card' set_id %}">Create</button> -->
       <form action="{% url 'flashcards:create_card' set_id %}">
         <input type="submit" value="Create" />
+    </form>
+    <form action="{% url 'flashcards:word_search' set_id %}">
+      <input type="submit" value="Word Search" />
     </form>
     
     </div>

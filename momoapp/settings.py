@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
+<<<<<<< HEAD
+=======
+from decouple import config
+>>>>>>> 6c5b9181a5b4c38cfb5dffc22e4a182600fa2254
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -22,7 +26,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1&^1ksu(bi(zn48c4hz!r50&7xqdi%qav9n$fcnzd04aj6e4me'
+SECRET_KEY = config('SECRET_KEY', default='')
+MERRIAM_WEBSTER_APP_ID = config('MERRIAM_WEBSTER_APP_ID', default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
