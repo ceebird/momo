@@ -81,26 +81,17 @@ function get_next_card() {
 
 };
 
-// $( document ).ready(function() {
-//     console.log( "ready!" );
-//     $.post("first_card/",
-//     {
-//         set: "none",
-//         csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
-//     },
-//     function(data, status){
-//         $('#card_id').text(data.pk)
-//         $('#front_word').text(data.front_word)
-//         $('#back_word').text(data.back_word)
-//     });
+$( document ).ready(function() {
+    console.log( "ready!" );
+    $.post("first_card/",
+    {
+        set: "none",
+        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+    },
+    function(data, status){
+        $('#card_id').text(data.pk)
+        $('#front_word').text(data.front_word)
+        $('#back_word').text(data.back_word)
+    });
 
-//     $.post("search_word/",
-//     {
-//         set: "none",
-//         csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
-//     },
-//     function(data, status){
-//         console.log(status)
-//         console.log(data)
-//     });
 });
