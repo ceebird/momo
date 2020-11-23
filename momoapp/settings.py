@@ -13,10 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-<<<<<<< HEAD
-=======
 from decouple import config
->>>>>>> 6c5b9181a5b4c38cfb5dffc22e4a182600fa2254
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
