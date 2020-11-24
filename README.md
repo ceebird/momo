@@ -25,7 +25,7 @@ Python 3.8.5, pip, virtualenv required
 - Create .env in projectroot following .env-example
 - Run the server
 ``` python3 manage.py runserver ```
-- Set up language in localhost:8000/admin
+- Set up language in ```localhost:8000/admin```
 
 
 ### Deploying to heroku:
@@ -45,7 +45,7 @@ Python 3.8.5, pip, virtualenv required
 ``` heroku run python manage.py migrate ```
 
 ### Future scope
-Autogenerate cards from word search results
-Close word match warning on flashcard answer
-Non-latin character support and more languages
-Card audio
+- Autogenerate cards from word search results
+- Close word match warning on flashcard answer
+- Non-latin character support and more languages
+- Card audio
