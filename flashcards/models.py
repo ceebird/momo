@@ -28,4 +28,4 @@ class Card(models.Model):
         return f"{self.set.name}: {self.language_word}"
 
     def get_absolute_url(self):
-        return reverse('flashcards:card_view', args=[self.id])
+        return reverse('flashcards:set_view', args=[self.set.id])

@@ -14,7 +14,7 @@
     <ul class="list-group">
     {% if cards %}
       {% for card in cards %}
-      <li class="list-group-item"><a href="{% url 'flashcards:card_view' card.id %}">{{ card.language_word }}</a></li>
+      <li class="list-group-item"><a href="{% url 'flashcards:update_card' set_id=set_id pk=card.id %}">{{ card.language_word }}</a></li>
       {% endfor %}
     {% else %}
     <p>No cards are available.</p>
@@ -24,12 +24,17 @@
 
 <div class="btn-bottom">
   <div class="row">
-    <div class="col-6">
+    <div class="col-4">
+      <form action="{% url 'flashcards:cards_start' set_id %}">
+          <input type="submit" value="Start" class="btn btn-dark"/>
+        </form>
+      </div>
+    <div class="col-4">
     <form action="{% url 'flashcards:create_card' set_id %}">
         <input type="submit" value="Create" class="btn btn-dark"/>
+      </form>
     </div>
-</form>
-  <div class="col-6">
+  <div class="col-4">
     <form action="{% url 'flashcards:word_search' set_id %}">
         <input type="submit" value="Word Search" class="btn btn-dark"/>
     </form>

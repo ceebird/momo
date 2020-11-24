@@ -14,9 +14,9 @@
         <div class="flashcard-inner" id="flashcard" v-bind:class="{'rotate-card': flipped}">
             <div class="flashcard-front" id="flashcard-front">
                 <form id="card-form" action="{% url 'flashcards:answer' set_id %}" method="post" autocomplete="off">
-                    <h1 id="front_word"></h1>
+                    <h1> [[front_word]] </h1>
                     {% csrf_token %}
-                    <input type="text" id="answer_text" name="answer_text">
+                    <input type="text" v-model="answer_text">
                     <input class="btn-primary" type="submit" value="Submit" id="submit">
                 </form>
                 {% if wrong_answer %}
@@ -27,15 +27,14 @@
                 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
             </div>
             <div class="flashcard-back" id="flashcard-back">
-                <!-- <h2> {{ card.native_word}}</h2> -->
                 <form id="next-card-form" action="{% url 'flashcards:next_card' set_id %}" method="post">
-                    <h1 id="back_word"></h1>
+                    <h1> [[back_word]] </h1>
                     <input class="btn-primary" type="submit" value="Next" id="submit">
                 </form>
             </div>
             </div>
         </section>
-        <input type="number" id ="card_id" hidden></input>
+        <input type="number" v-model="card_id" hidden></input>
     </div>
 </a>
 

@@ -5,11 +5,13 @@ from django.template import loader
 from django.urls import reverse
 from django.views import generic
 from django.conf import settings
-from django.views.generic.edit import CreateView
-import requests
+from django.views.generic.edit import CreateView, UpdateView
+from django.core import serializers
 
 import json
 import pprint
+import requests
+import random
 
 class IndexView(generic.ListView):
     template_name = 'flashcards/index.html'
@@ -20,27 +22,47 @@ class CardCreate(CreateView):
     model = Card
     fields = ['set', 'language_word', 'native_word']
 
+class CardUpdate(UpdateView):
+    model = Card
+    fields = ['language_word', 'native_word']
+    template_name_suffix = '_update_form'
+
 class SetCreate(CreateView):
     model = Set
     fields = ['name', 'language']
 
+# --------- View rendering functions --------- #
 def set_view(request, pk):
+    """
+        Renders Set View
+    """
     return render(request, 'flashcards/set.html', {
         'cards': Card.objects.filter(set=pk),
         'set_id': pk,
     })
 
-def card_view(request, set_id):
-    return render(request, 'flashcards/card.html', {
-        'set_id': 1,
+def cards_start(request, set_id):
+    """
+        Renders flashcards view 
+    """
+    return render(request, 'flashcards/cards.html', {
+        'set_id': set_id,
     })
 
 def word_search(request, set_id):
+    """
+        Calls word search view
+    """
     return render(request, 'flashcards/word_search.html', {
-        'set_id': 1,
+        'set_id': set_id,
     })
 
+#--------- Flashcard js functions ---------#
+
 def answer(request, set_id):
+    """
+        Checks submitted card answer to see if correct
+    """
     if request.method == 'POST':
         card = get_object_or_404(Card, pk=int(request.POST['card_id']))
         response_data = {}
@@ -58,9 +80,12 @@ def answer(request, set_id):
             )
 
 def next_card(request, set_id):
+    """
+        Collects next card from passed id
+    """
     try:
         if request.method == 'POST':
-            next_card = Card.objects.get(pk=int(request.POST['card_id'])+1)
+            next_card = Card.objects.get(pk=int(request.POST['card_id']))
             return HttpResponse(
                 json.dumps({"pk": next_card.pk, "front_word" : next_card.language_word, "back_word": next_card.native_word }),
                 content_type="application/json"
@@ -71,15 +96,25 @@ def next_card(request, set_id):
                 content_type="application/json"
             )
 
+def get_cards(request, set_id):
+    """
+        Returns a randomised array of ids for cards of set and the values of first card
+    """
+    cards = Card.objects.filter(set=set_id)
+    ids = [ card.id for card in cards ]
 
-def first_card(request, set_id):
-    card = get_object_or_404(Card, pk=1)
+    # Randomise cards
+    random.shuffle(ids)
+    card = Card.objects.get(pk=ids[0])
     return HttpResponse(
-            json.dumps({"pk": card.pk, "front_word" : card.language_word, "back_word": card.native_word }),
+            json.dumps({"card_ids": ids, 'first_card': {'pk': card.pk, 'front_word': card.language_word, 'back_word' : card.native_word}}),
             content_type="application/json"
         )
         
 def search_word(request, set_id):
+    """
+        Gets word from form and passes to the Merriam Webster API. returning result of search
+    """
     if request.method == 'POST':
         result = {}
         word = request.POST['word']

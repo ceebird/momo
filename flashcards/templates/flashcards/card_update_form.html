@@ -1,0 +1,23 @@
+
+
+{% include 'base.html' %}
+{% load static %}
+
+
+{% block head_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'flashcards/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+{% endblock %}
+
+{% block body_main %}
+<a id="vflashcards">
+    <div class="container">
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</a>
+
+{% endblock %}

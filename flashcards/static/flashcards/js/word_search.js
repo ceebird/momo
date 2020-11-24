@@ -63,7 +63,7 @@ function search_word(word, filter) {
             alert(data[data.length-1].message);
         }
         else{
-            // Filter out any spanish entries that may have matched
+            // Filter out any entries that may have matched other language
             var es_words = data.filter(function (el) {
                 return  typeof(el.meta) !== 'undefined' &&
                         el.meta.lang == filter
